@@ -5,23 +5,21 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.substitutions import FindPackageShare
 from launch.substitutions import PathJoinSubstitution
 
+
 def generate_launch_description():
-    return LaunchDescription([
-        Node(
+    slamtoolbox_params = PathJoinSubstitution([
+        FindPackageShare("r2_robot"),
+        "config",
+        "slamtoolbox_mapping.yaml"
+    ]),
+    slamtoolbox = Node(
             package="slam_toolbox",
             executable="async_slam_toolbox_node", 
             name="slam_toolbox",
             output="screen",
-            parameters=[{
-                "use_sim_time": True,
-                "base_frame": "base_footprint",
-                "odom_frame": "odom",
-                "map_frame": "map",
-                "scan_topic": "/scan",
-                "publish_map": True,
-                "map_qos_transient_local": True
-                }],
-            ),
+            parameters=[slamtoolbox_params])
+    return LaunchDescription([
+            slamtoolbox,
             # Node(
             # package='rf2o_laser_odometry',
             # executable='rf2o_laser_odometry_node',
