@@ -23,6 +23,10 @@ class CmdVelSerial(Node):
 
         self.create_subscription(Twist, "/cmd_vel", self.cmd_callback, 10)
 
+    def read_arduino(self):
+        self.get_logger().info(f"in funcyton")
+   
+
     def cmd_callback(self, msg):
 
         vx = msg.linear.x
@@ -37,8 +41,8 @@ class CmdVelSerial(Node):
 
         # --- scale to 0-100 ---
         SSS = int(max(0, min(50, (strength / MAX_LIN) * 50)))
-        RRR = int(max(0, min(50, (abs(wz) / MAX_ANG) * 50)))
-        AAA = int(max(0, min(359, theta)))  
+        RRR = int(max(0, min(50, (abs(wz) / MAX_ANG) * 20)))
+        AAA = 90+ int(max(0, min(359, theta)))  
         TT = 0
         if SSS == 0:
          AAA = 400
@@ -48,19 +52,19 @@ class CmdVelSerial(Node):
         data = {"LOC": frame}  
         
         if strength == 0:
-            theta = 400
+            theta = 400    
         self.ser.write((json.dumps(data) + '*').encode())
-        self.get_logger().info(f"data : {data} {vx} {vy} {wz}")
         self.read_arduino
-    
-    def read_arduino(self):
         try:
+            self.get_logger().info(f"in try")
             while self.arduino.in_waiting:
+                self.get_logger().info(f"in while")
                 line = self.arduino.readline().decode().strip()
                 if line:
                     self.get_logger().info(f"Arduino: {line}")
         except Exception:
-            pass
+            pass 
+
             
 
 def main():

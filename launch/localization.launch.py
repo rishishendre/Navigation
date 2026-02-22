@@ -33,7 +33,7 @@ def generate_launch_description():
 
     declare_sim = DeclareLaunchArgument(
         'use_sim_time',
-        default_value='false'
+        default_value='true'
     )
 
     # LOCALIZATION
@@ -42,7 +42,7 @@ def generate_launch_description():
             PathJoinSubstitution([
                 FindPackageShare('nav2_bringup'),
                 'launch',
-                'localization_launch.py'
+                'bringup_launch.py'
             ])
         ),
         launch_arguments={

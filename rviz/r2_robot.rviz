@@ -43,86 +43,6 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Class: rviz_default_plugins/TF
-      Enabled: true
-      Frame Timeout: 15
-      Frames:
-        All Enabled: true
-        base_footprint:
-          Value: true
-        laser:
-          Value: true
-        links_front:
-          Value: true
-        links_left:
-          Value: true
-        links_middle:
-          Value: true
-        links_rear:
-          Value: true
-        links_right:
-          Value: true
-        map:
-          Value: true
-        odom:
-          Value: true
-        wheel_support_1:
-          Value: true
-        wheel_support_2:
-          Value: true
-        wheel_support_3:
-          Value: true
-        wheel_support_4:
-          Value: true
-        wheels_bl:
-          Value: true
-        wheels_br:
-          Value: true
-        wheels_fl:
-          Value: true
-        wheels_fr:
-          Value: true
-      Marker Scale: 1
-      Name: TF
-      Show Arrows: true
-      Show Axes: true
-      Show Names: false
-      Tree:
-        base_footprint:
-          laser:
-            {}
-          links_front:
-            {}
-          links_left:
-            {}
-          links_middle:
-            {}
-          links_rear:
-            {}
-          links_right:
-            {}
-          wheel_support_1:
-            {}
-          wheel_support_2:
-            {}
-          wheel_support_3:
-            {}
-          wheel_support_4:
-            {}
-          wheels_bl:
-            {}
-          wheels_br:
-            {}
-          wheels_fl:
-            {}
-          wheels_fr:
-            {}
-        map:
-          {}
-        odom:
-          {}
-      Update Interval: 0
-      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -156,26 +76,6 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
-    - Alpha: 0.699999988079071
-      Class: rviz_default_plugins/Map
-      Color Scheme: map
-      Draw Behind: false
-      Enabled: true
-      Name: Map
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /map
-      Update Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /map_updates
-      Use Timestamp: false
-      Value: true
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
@@ -198,6 +98,11 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         laser:
           Alpha: 1
           Show Axes: false
@@ -273,10 +178,134 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        base_footprint:
+          Value: true
+        base_link:
+          Value: true
+        laser:
+          Value: true
+        links_front:
+          Value: true
+        links_left:
+          Value: true
+        links_middle:
+          Value: true
+        links_rear:
+          Value: true
+        links_right:
+          Value: true
+        odom:
+          Value: true
+        wheel_support_1:
+          Value: true
+        wheel_support_2:
+          Value: true
+        wheel_support_3:
+          Value: true
+        wheel_support_4:
+          Value: true
+        wheels_bl:
+          Value: true
+        wheels_br:
+          Value: true
+        wheels_fl:
+          Value: true
+        wheels_fr:
+          Value: true
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Tree:
+        base_footprint:
+          base_link:
+            laser:
+              {}
+            links_front:
+              {}
+            links_left:
+              {}
+            links_middle:
+              {}
+            links_rear:
+              {}
+            links_right:
+              {}
+            wheel_support_1:
+              wheels_bl:
+                {}
+              wheels_fl:
+                {}
+            wheel_support_2:
+              {}
+            wheel_support_3:
+              wheels_br:
+                {}
+              wheels_fr:
+                {}
+            wheel_support_4:
+              {}
+        odom:
+          {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic:
+        Depth: 5
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_updates
+      Use Timestamp: false
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz_default_plugins/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /path
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_footprint
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -315,21 +344,26 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: 0
-      Class: rviz_default_plugins/TopDownOrtho
+      Class: rviz_default_plugins/Orbit
+      Distance: 10
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 84.9742431640625
+      Pitch: 0.7503980398178101
       Target Frame: <Fixed Frame>
-      Value: TopDownOrtho (rviz_default_plugins)
-      X: -0.005024084821343422
-      Y: 0.0050240857526659966
+      Value: Orbit (rviz)
+      Yaw: 3.260402202606201
     Saved: ~
 Window Geometry:
   Displays:

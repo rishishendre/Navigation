@@ -7,7 +7,7 @@ from launch_ros.substitutions import FindPackageShare
 from launch.substitutions import PathJoinSubstitution
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
-from launch.actions import ExecuteProcess
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 import os
 def generate_launch_description():
 
@@ -21,6 +21,7 @@ def generate_launch_description():
         "rviz",
         "r2_robot.rviz"
     ])
+
     channel_type =  LaunchConfiguration('channel_type', default='serial')
     serial_port = LaunchConfiguration('serial_port', default='/dev/ttyUSB0')
     serial_baudrate = LaunchConfiguration('serial_baudrate', default='115200')
@@ -62,17 +63,19 @@ def generate_launch_description():
             package="robot_state_publisher",
             executable="robot_state_publisher",
             output="screen",
-            parameters=[{"robot_description": robot_description}],
+            parameters=[{"robot_description": robot_description,"use_sim_time":True}],
     )
     joint_pub = Node(
             package="joint_state_publisher_gui",
             executable="joint_state_publisher_gui",
+            parameters=[{"use_sim_time": True}],
             output="screen",
     )
     rviz = Node(
             package="rviz2",
             executable="rviz2",
             arguments=["-d", rviz_config],
+            parameters=[{"use_sim_time":True}],
             output="screen",
     )
     rplidar = Node(
@@ -88,10 +91,10 @@ def generate_launch_description():
             output='screen')
 
     return LaunchDescription([
-        rplidar,
+        # rplidar,  
+        gazebo,
         state_pub,
         joint_pub,
-        gazebo,
         spawn_bot,
-        rviz,   
+        rviz,
     ])
