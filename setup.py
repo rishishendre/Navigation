@@ -30,6 +30,7 @@ setup(
     entry_points={
         'console_scripts': [
           'send_arduino = r2_robot.send_command:main',
+          'Holonomic_control = r2_robot.holonomic_control:main',
           'Goal = r2_robot.MovetoGoal:main',
         ],
     },

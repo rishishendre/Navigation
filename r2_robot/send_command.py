@@ -12,7 +12,7 @@ class CmdVelSerial(Node):
     def __init__(self):
         super().__init__("cmdvel_serial")
 
-        self.declare_parameter("port", "/dev/ttyACM0")
+        self.declare_parameter("port", "/dev/ttyUSB0")
         self.declare_parameter("baud", 115200)
 
         port = self.get_parameter("port").value
@@ -36,13 +36,13 @@ class CmdVelSerial(Node):
         theta = (math.degrees(math.atan2(vy,vx)))
         if theta<0:
             theta += 360
-        MAX_LIN = 3.0
-        MAX_ANG = 1.0
+        
+
 
         # --- scale to 0-100 ---
-        SSS = int(max(0, min(50, (strength / MAX_LIN) * 50)))
-        RRR = int(max(0, min(50, (abs(wz) / MAX_ANG) * 20)))
-        AAA = 90+ int(max(0, min(359, theta)))  
+        SSS = int(max(0, min(50, (strength) * 200)))
+        RRR = int(max(0, min(50, (abs(wz)) * 20)))
+        AAA = int(max(0, min(359, theta)))  
         TT = 0
         if SSS == 0:
          AAA = 400

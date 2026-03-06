@@ -14,7 +14,7 @@ def generate_launch_description():
     urdf_path = PathJoinSubstitution([
         FindPackageShare("r2_robot"),
         "urdf",
-        "robot.urdf"
+        "robot_omni.urdf"
     ])
     rviz_config = PathJoinSubstitution([
         FindPackageShare("r2_robot"),
@@ -88,7 +88,28 @@ def generate_launch_description():
                         'frame_id': frame_id,
                         'inverted': inverted,
                         'angle_compensate': angle_compensate}],
-            output='screen')
+            output='screen'
+    )
+    ray_to_odom = Node(
+            package='rf2o_laser_odometry',
+            executable='rf2o_laser_odometry_node',
+            name='rf2o_laser_odometry',
+            output='screen',
+            parameters=[{
+                "laser_scan_topic" : "/scan",
+                "odom_topic" : "/odom",
+                "publish_tf" : True,
+                "base_frame_id" : "base_footprint",
+                "odom_frame_id" : "odom",
+                "init_pose_from_topic" : "",
+                "freq" : 10.0}],
+    )
+    holonomic =  Node(
+            package='r2_robot',
+            executable='Holonomic_control',
+            name='Holonomic_control_node',
+            output='screen'
+    ) 
 
     return LaunchDescription([
         # rplidar,  
@@ -97,4 +118,6 @@ def generate_launch_description():
         joint_pub,
         spawn_bot,
         rviz,
+        ray_to_odom,
+        holonomic
     ])
